@@ -3,9 +3,9 @@
 Simple web-based and cross platform PostgreSQL database explorer.
 
 [![Release](https://img.shields.io/github/release/sosedoff/pgweb.svg?label=Release)](https://github.com/sosedoff/pgweb/releases)
-[![Linux Build](https://github.com/sosedoff/pgweb/actions/workflows/checks.yml/badge.svg)](https://github.com/sosedoff/pgweb/actions?query=branch%3Amaster)
+[![Linux Build](https://github.com/sosedoff/pgweb/actions/workflows/checks.yml/badge.svg)](https://github.com/sosedoff/pgweb/actions?query=branch%3Amain)
 [![Go Report Card](https://goreportcard.com/badge/github.com/sosedoff/pgweb)](https://goreportcard.com/report/github.com/sosedoff/pgweb)
-[![GoDoc](https://godoc.org/github.com/sosedoff/pgweb?status.svg)](https://godoc.org/github.com/sosedoff/pgweb)
+[![GoDoc](https://pkg.go.dev/badge/github.com/sosedoff/pgweb)](https://pkg.go.dev/github.com/sosedoff/pgweb)
 [![Docker Pulls](https://img.shields.io/docker/pulls/sosedoff/pgweb.svg)](https://hub.docker.com/r/sosedoff/pgweb/)
 
 ## Overview
@@ -21,7 +21,7 @@ Very easy to use and packs just the right amount of features.
 - Cross-platform: Mac/Linux/Windows (64bit).
 - Simple installation (distributed as a single binary).
 - Zero dependencies.
-- Works with PostgreSQL 9.1+.
+- Works with PostgreSQL 9.6+.
 - Supports native SSH tunnels.
 - Multiple database sessions.
 - Execute and analyze custom SQL queries.

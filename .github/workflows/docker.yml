@@ -3,10 +3,10 @@ name: docker
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
-  GO_VERSION: "1.22"
+  GO_VERSION: "1.25"
   CGO_ENABLED: 0
   IMAGE_REPOSITORY: sosedoff/pgweb
 
