@@ -28,9 +28,9 @@ var (
 // Example: 10.2.3.1 -> 10.2
 func getMajorMinorVersion(str string) (major int, minor int) {
 	chunks := strings.Split(str, ".")
-	fmt.Sscanf(chunks[0], "%d", &major)
+	_, _ = fmt.Sscanf(chunks[0], "%d", &major)
 	if len(chunks) > 1 {
-		fmt.Sscanf(chunks[1], "%d", &minor)
+		_, _ = fmt.Sscanf(chunks[1], "%d", &minor)
 	}
 	return
 }

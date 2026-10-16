@@ -57,7 +57,7 @@ func assertMatches(t *testing.T, expected, src []string) {
 
 func pgVersion() (int, int) {
 	var major, minor int
-	fmt.Sscanf(os.Getenv("PGVERSION"), "%d.%d", &major, &minor)
+	_, _ = fmt.Sscanf(os.Getenv("PGVERSION"), "%d.%d", &major, &minor)
 	return major, minor
 }
 
