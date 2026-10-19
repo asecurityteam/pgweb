@@ -179,9 +179,13 @@ func ParseOptions(args []string) (Options, error) {
 		}
 	}
 
+	if opts.BookmarksDir == "" {
+		opts.BookmarksDir = getPrefixedEnvVar("BOOKMARKS_DIR")
+	}
+
 	homePath, err := homedir.Dir()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "[WARN] cant detect home dir: %v", err)
+		fmt.Fprintf(os.Stderr, "[WARN] can't detect home dir: %v", err)
 		homePath = os.Getenv("HOME")
 	}
 
@@ -237,9 +241,10 @@ func AvailableEnvVars() string {
 	return strings.Join([]string{
 		"  " + envVarPrefix + "DATABASE_URL  Database connection string",
 		"  " + envVarPrefix + "URL_PREFIX    HTTP server path prefix",
-		"  " + envVarPrefix + "SESSIONS:     Enable multiple database sessions",
+		"  " + envVarPrefix + "SESSIONS      Enable multiple database sessions",
 		"  " + envVarPrefix + "LOCK_SESSION  Lock session to a single database connection",
 		"  " + envVarPrefix + "AUTH_USER     HTTP basic auth username",
 		"  " + envVarPrefix + "AUTH_PASS     HTTP basic auth password",
+		"  " + envVarPrefix + "BOOKMARKS_DIR Overrides default directory for bookmark files",
 	}, "\n")
 }

@@ -99,6 +99,7 @@ function apiCall(method, path, params, cb) {
 
 function getInfo(cb)                        { apiCall("get", "/info", {}, cb); }
 function getConnection(cb)                  { apiCall("get", "/connection", {}, cb); }
+function getServerSettings(cb)              { apiCall("get", "/server_settings", {}, cb); }
 function getSchemas(cb)                     { apiCall("get", "/schemas", {}, cb); }
 function getObjects(cb)                     { apiCall("get", "/objects", {}, cb); }
 function getTables(cb)                      { apiCall("get", "/tables", {}, cb); }
@@ -430,7 +431,11 @@ function buildTable(results, sortColumn, sortOrder, options) {
   if (results.rows.length == 0) {
     $("#results_header").html("");
     $("#results_body").html("<tr><td>No records found</td></tr>");
-    $("#result-rows-count").html("");
+    if (results.stats) {
+      $("#result-rows-count").html(results.stats.query_duration_ms + " ms");
+    } else {
+      $("#result-rows-count").html("");
+    }
     $("#results").addClass("empty");
     return;
   }
@@ -440,9 +445,8 @@ function buildTable(results, sortColumn, sortOrder, options) {
 
   results.columns.forEach(function(col) {
     if (col === sortColumn) {
-      cols += "<th class='table-header-col active' data-name='" + col + "'" + "data-order=" + sortOrder + ">" + col + "&nbsp;" + sortArrow(sortOrder) + "</th>";
-    }
-    else {
+      cols += "<th class='table-header-col active' data-name='" + col + "' data-order=" + sortOrder + ">" + col + "&nbsp;" + sortArrow(sortOrder) + "</th>";
+    } else {
       cols += "<th class='table-header-col' data-name='" + col + "'>" + col + "</th>";
     }
   });
@@ -673,6 +677,17 @@ function showDatabaseStats() {
 
 function downloadDatabaseStats() {
   openInNewWindow("api/tables_stats", { format: "csv", export: "true" });
+}
+
+function showServerSettings() {
+  getServerSettings(function(data) {
+    buildTable(data);
+
+    setCurrentTab("table_content");
+    $("#input").hide();
+    $("#body").prop("class", "full");
+    $("#results").addClass("no-crop");
+  });
 }
 
 function showTableStructure() {
@@ -1276,6 +1291,9 @@ function bindCurrentDatabaseMenu() {
           break;
         case "download_db_stats":
           downloadDatabaseStats();
+          break;
+        case "server_settings":
+          showServerSettings();
           break;
         case "export":
           openInNewWindow("api/export");

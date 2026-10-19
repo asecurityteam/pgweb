@@ -220,23 +220,23 @@ func NewTunnel(sshInfo *shared.SSHInfo, dbUrl string) (*Tunnel, error) {
 }
 
 func parseEncryptedPrivateKey(buff []byte, keyPass []byte) (ssh.Signer, error) {
-    // Decode the PEM block
-    pemBlock, _ := pem.Decode(buff)
-    if pemBlock == nil {
-        return nil, fmt.Errorf("failed to decode PEM block")
-    }
+	// Decode the PEM block
+	pemBlock, _ := pem.Decode(buff)
+	if pemBlock == nil {
+		return nil, fmt.Errorf("failed to decode PEM block")
+	}
 
-    // Parse the encrypted private key with passphrase
-    decryptedKey, err := ssh.ParseRawPrivateKeyWithPassphrase(pemBlock.Bytes, keyPass)
-    if err != nil {
-        return nil, fmt.Errorf("failed to decrypt and parse private key: %v", err)
-    }
+	// Parse the encrypted private key with passphrase
+	decryptedKey, err := ssh.ParseRawPrivateKeyWithPassphrase(pemBlock.Bytes, keyPass)
+	if err != nil {
+		return nil, fmt.Errorf("failed to decrypt and parse private key: %v", err)
+	}
 
-    // Create a signer from the decrypted key
-    signer, err := ssh.NewSignerFromKey(decryptedKey)
-    if err != nil {
-        return nil, fmt.Errorf("failed to create signer from key: %v", err)
-    }
+	// Create a signer from the decrypted key
+	signer, err := ssh.NewSignerFromKey(decryptedKey)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create signer from key: %v", err)
+	}
 
-    return signer, nil
+	return signer, nil
 }
